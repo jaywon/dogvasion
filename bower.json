@@ -1,0 +1,19 @@
+{
+  "name": "dogvasion",
+  "version": "0.0.0",
+  "homepage": "https://github.com/jaywon/dogvasion",
+  "authors": [
+    "Jay Won <jason@sudokrew.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "phaser": "~2.2.2"
+  }
+}
