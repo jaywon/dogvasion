@@ -1,6 +1,8 @@
 var Dogvasion = Dogvasion || {};
 
-Dogvasion.Game = function() {};
+Dogvasion.Game = function() {
+  
+};
 
 Dogvasion.Game.prototype = {
   preload: function(){
@@ -18,37 +20,25 @@ Dogvasion.Game.prototype = {
     ground.body.immovable = true;
 
     //initialize player and set physics properties
-    // this.player = this.game.add.sprite(10, this.game.world.height / 2, 'dude');
-    this.player = this.game.add.sprite(10, this.game.world.height / 2, 'kittens');
-    this.game.physics.arcade.enable(this.player);
-    this.player.body.bounce.y = 0.2;
-    this.player.body.gravity.y = 300;
-    this.player.body.collideWorldBounds = true;
-
-    //add player animations
-    this.player.animations.add('left', [12,13,14], 12, true, true);
-    this.player.animations.add('right', [24,25,26], 12, true, true);
+    this.player = new Dogvasion.Samcat();  
   },
 
   update: function(){
-    this.game.physics.arcade.collide(this.player, this.platforms);
+    this.game.physics.arcade.collide(this.player.instance, this.platforms);
 
     var cursors = this.game.input.keyboard.createCursorKeys();
-    this.player.body.velocity.x = 0;
+    this.player.instance.body.velocity.x = 0;
 
     if(cursors.left.isDown){
-      this.player.body.velocity.x = -150;
-      this.player.animations.play('left');
+      this.player.moveLeft();
     }else if(cursors.right.isDown){
-      this.player.body.velocity.x = 150;
-      this.player.animations.play('right');
+      this.player.moveRight();
     }else{
-      this.player.animations.stop();
-      this.player.frame = 1;
+      this.player.stop();
     }
     
-    if (cursors.up.isDown && this.player.body.touching.down){
-      this.player.body.velocity.y = -350;
+    if (cursors.up.isDown && this.player.instance.body.touching.down){
+      this.player.jump();
     }
   }
 };
