@@ -13,6 +13,7 @@ Dogvasion.Game.prototype = {
     
     //set up sounds
     this.whineSound = this.game.add.audio("whine");
+    this.deathSound = this.game.add.audio("death");
 
     //set up physical elements
     this.platforms = this.game.add.group();
@@ -32,7 +33,9 @@ Dogvasion.Game.prototype = {
 
   update: function(){
     this.game.physics.arcade.collide(this.player.instance, this.platforms);
+    this.game.physics.arcade.collide(this.minion.instance, this.platforms);
     this.game.physics.arcade.overlap(this.player.bullets, this.minion.instance, minionShotHandler, null, this);
+    this.game.physics.arcade.overlap(this.player.instance, this.minion.instance, minionCollisionHandler, null, this);
 
     var cursors = this.game.input.keyboard.createCursorKeys();
     var wKey = this.game.input.keyboard.addKey(Phaser.Keyboard.W);
@@ -49,8 +52,6 @@ Dogvasion.Game.prototype = {
       this.player.stop();
     }
 
-    // sprite.rotation = game.physics.arcade.angleToPointer(sprite);
-
     if (this.game.input.activePointer.isDown)
     {
       this.player.shoot();
@@ -61,6 +62,11 @@ Dogvasion.Game.prototype = {
     }
   }
 };
+
+function minionCollisionHandler(player, minion){
+  this.deathSound.play();
+  player.kill();
+}
 
 function minionShotHandler(bullet, minion){
   // if(minion.hits >= 2){
