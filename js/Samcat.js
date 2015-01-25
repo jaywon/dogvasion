@@ -16,8 +16,8 @@ Dogvasion.Samcat.prototype = {
     this.instance.body.gravity.y = 300;
     this.instance.body.collideWorldBounds = true;
 
-    this.instance.animations.add('left', [12,13,14], 12, true, true);
-    this.instance.animations.add('right', [24,25,26], 12, true, true); 
+    this.instance.animations.add('left', [3,4,5], 12, true, true);
+    this.instance.animations.add('right', [6,7,8], 12, true, true); 
   },
   moveLeft: function(){
     this.instance.body.velocity.x = -150;
