@@ -16,6 +16,7 @@ Dogvasion.Preload.prototype = {
     // this.preloadBar.scale.setTo(3);
  
     // this.load.setPreloadSprite(this.preloadBar);
+    this.game.load.image('logo', 'assets/images/sprites/dogvasion.png');
  
     //load game assets
     this.load.image('ground', 'assets/images/sprites/ground.jpg', 400, 200);
