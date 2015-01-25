@@ -70,8 +70,9 @@ Dogvasion.Game.prototype = {
   },
 
   gameOver: function(){
-    this.introText.text = 'Game Over!';
-    this.introText.visible = true;
+    this.gameOverText = this.game.add.text(this.game.world.centerX, 400, 'Game Over!', { font: "40px Arial", fill: "#ffffff", align: "center" });
+    this.gameOverText.anchor.setTo(0.5, 0.5);
+    this.gameOverText.visible = true;
   }
 };
 
