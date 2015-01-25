@@ -98,13 +98,15 @@ function minionCollisionHandler(player, minion){
       var rando = Math.floor(Math.random()*5);
       this.painSounds[rando].play();
     }
-
   }
 }
 
 function minionShotHandler(bullet, minion){
     this.whineSound.play();
     bullet.kill();
-    minion.kill();
+    if(minion.blackhole){
+      minion.blackhole.kill();
+    }
+    minion.damage(1);
     this.minion = new Dogvasion.Minion(); 
 }
