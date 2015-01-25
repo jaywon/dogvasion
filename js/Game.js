@@ -61,10 +61,14 @@ Dogvasion.Game.prototype = {
 
 function minionShotHandler(bullet, minion){
   if(minion.hits >= 2){
+    new Sound(Dogvasion, 'whine')
+    whine.play();
     bullet.kill();
     minion.kill();
     this.minion = new Dogvasion.Minion(); 
   }else{
+    new Sound(Dogvasion, 'dpain1')
+    dpain1.play();
     bullet.kill();
     minion.hits += 1;
   }
