@@ -21,8 +21,11 @@ Dogvasion.Minion.prototype = {
     var randomX = this.game.world.randomX;
     var randomY = this.game.world.randomY;
     this.instance = this.game.add.sprite(randomX, randomY, 'enemies');
-    this.growlSound = this.game.add.audio("growl");
-    this.growlSound.play();
+    this.growlSound1 = this.game.add.audio("growl");
+    this.growlSound2 = this.game.add.audio("bark");
+    this.growlSounds = [this.growlSound1,this.growlSound2];
+    var rando2 = Math.floor(Math.random()*2);
+    this.growlSounds[rando2].play();
     this.game.physics.arcade.enable(this.instance);
     this.instance.body.bounce.y = 0.2;
     this.instance.body.gravity.y = 300;
