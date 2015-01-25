@@ -10,6 +10,7 @@ Dogvasion.Game.prototype = {
     this.whineSound = this.game.add.audio("whine");
     this.deathSound = this.game.add.audio("death");
     this.levelMusic = this.game.add.audio("level1");
+    this.gunSound = this.game.add.audio("pistol");
   },
   create: function(){
     var background = this.game.add.tileSprite(0, 0, 800, 600, "background");
@@ -57,6 +58,7 @@ Dogvasion.Game.prototype = {
     if (this.game.input.activePointer.isDown)
     {
       this.player.shoot();
+      this.gunSound.play();
     }
     
     if (wKey.isDown && this.player.instance.body.touching.down){
