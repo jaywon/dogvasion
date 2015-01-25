@@ -11,11 +11,11 @@ Dogvasion.Game.prototype = {
     this.whineSound = this.game.add.audio("whine");
     this.deathSound = this.game.add.audio("death");
     this.levelMusic = this.game.add.audio("level1");
-    this.gunSound = this.game.add.audio("pistol");
   },
   create: function(){
     var background = this.game.add.tileSprite(0, 0, 800, 600, "background");
     
+
     //set up sounds
     this.levelMusic.play("", 0, 1, true, true);
 
@@ -28,18 +28,11 @@ Dogvasion.Game.prototype = {
     ground.body.immovable = true;
 
     //initialize player and set physics properties
-    this.player = new Dogvasion.Samcat();  
-    this.minion = new Dogvasion.Minion(); 
-    // this.minions = this.game.add.group();
-    // this.minions.enableBody = true;
-    // this.minions.physicalBodyType = Phaser.Physics.ARCADE;
+    this.player = new Dogvasion.Samcat();    
+    this.minion = new Dogvasion.Minion();
   },
 
   update: function(){
-    this.game.physics.arcade.collide(this.player.instance, this.platforms);
-    this.game.physics.arcade.collide(this.minion.instance, this.platforms);
-    this.game.physics.arcade.overlap(this.player.bullets, this.minion.instance, minionShotHandler, null, this);
-    this.game.physics.arcade.overlap(this.player.instance, this.minion.instance, minionCollisionHandler, null, this);
 
     var cursors = this.game.input.keyboard.createCursorKeys();
     var wKey = this.game.input.keyboard.addKey(Phaser.Keyboard.W);
@@ -47,6 +40,11 @@ Dogvasion.Game.prototype = {
     var sKey = this.game.input.keyboard.addKey(Phaser.Keyboard.S);
     var dKey = this.game.input.keyboard.addKey(Phaser.Keyboard.D);
     this.player.instance.body.velocity.x = 0;
+    this.game.physics.arcade.collide(this.player.instance, this.platforms);
+    
+    this.game.physics.arcade.collide(this.minion.instance, this.platforms);
+    this.game.physics.arcade.overlap(this.player.bullets, this.minion.instance, minionShotHandler, null, this);
+    this.game.physics.arcade.overlap(this.player.instance, this.minion.instance, minionCollisionHandler, null, this);
 
     if(aKey.isDown){
       this.player.moveLeft();
@@ -59,7 +57,6 @@ Dogvasion.Game.prototype = {
     if (this.game.input.activePointer.isDown)
     {
       this.player.shoot();
-      this.gunSound.play();
     }
     
     if (wKey.isDown && this.player.instance.body.touching.down){

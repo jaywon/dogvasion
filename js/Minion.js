@@ -1,6 +1,10 @@
 var Dogvasion = Dogvasion || {};
 var MAX_HEALTH = 2;
-var DEATH_HITS = 2;
+var MAX_HITS= 2;
+
+function random(){
+  return Math.floor(Math.random() * 50) + 1;
+}
 
 Dogvasion.Minion = function() {
   self = this;
@@ -12,7 +16,7 @@ Dogvasion.Minion = function() {
 
 Dogvasion.Minion.prototype = {
   init: function(){
-    this.instance = this.game.add.sprite(this.game.world.width - 50, this.game.world.height / 2, 'enemies');
+    this.instance = this.game.add.sprite(this.game.world.randomX,this.game.world.randomY, 'enemies');
     this.game.physics.arcade.enable(this.instance);
     this.instance.body.bounce.y = 0.2;
     this.instance.body.gravity.y = 300;

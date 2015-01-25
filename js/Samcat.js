@@ -15,6 +15,7 @@ Dogvasion.Samcat.prototype = {
   init: function(){
     this.instance = this.game.add.sprite(this.game.world.width / 2, this.game.world.height / 2, 'kittens');
     this.game.physics.arcade.enable(this.instance);
+    this.gunSound = this.game.add.audio("impact");
     this.instance.body.bounce.y = 0.2;
     this.instance.body.gravity.y = 300;
     this.instance.body.collideWorldBounds = true;
@@ -51,6 +52,7 @@ Dogvasion.Samcat.prototype = {
   shoot: function(){
     if (this.game.time.now > nextFire && this.bullets.countDead() > 0)
     {
+        this.gunSound.play();
         nextFire = this.game.time.now + fireRate;
         var bullet = this.bullets.getFirstDead();
         bullet.reset(this.instance.x - 8, this.instance.y - 8);
