@@ -24,10 +24,10 @@ Dogvasion.Preload.prototype = {
     this.load.spritesheet('kittens', 'assets/images/sprites/samcat.png', 50, 50, 9);
     this.load.spritesheet('enemies', 'assets/images/sprites/maxdog.png', 120, 60, 16);
     this.load.spritesheet('pistol', 'assets/images/sprites/guns.png', 40, 40, 2);
-    // this.load.audio('bark', 'assets/sfx/dogs/bark.mp3');
+    this.load.audio('bark', 'assets/sfx/dogs/bark.mp3');
     this.load.audio('growl', 'assets/sfx/dogs/growl.mp3');
     this.load.audio('dpain1', 'assets/sfx/dogs/pain1.mp3');
-    // this.load.audio('dpain2', 'assets/sfx/dogs/pain2.mp3');
+    this.load.audio('dpain2', 'assets/sfx/dogs/pain2.mp3');
     this.load.audio('whine', 'assets/sfx/dogs/whine.mp3');
     this.load.audio('impact', 'assets/sfx/guns/bulletimpact.mp3');
     // this.load.audio('mgun', 'assets/sfx/guns/machinegun.mp3');
