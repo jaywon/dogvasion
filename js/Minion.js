@@ -1,6 +1,7 @@
 var Dogvasion = Dogvasion || {};
-var MAX_HEALTH = 2;
-var MAX_HITS= 2;
+var nextMovement = 0;
+var movementDelay = 100; 
+var timeout;
 
 function random(){
   return Math.floor(Math.random() * 50) + 1;
@@ -9,12 +10,9 @@ function random(){
 Dogvasion.Minion = function() {
   self = this;
   this.game = Dogvasion.game;
-  this.health = MAX_HEALTH;
-  this.hits = 0;
   this.init();
 };
 
-var timeout;
 
 Dogvasion.Minion.prototype = {
   init: function(){
@@ -33,40 +31,35 @@ Dogvasion.Minion.prototype = {
 
     this.instance.blackhole = this.game.add.sprite(randomX - 150, randomY - 150, 'blackhole');
     this.instance.bringToTop();
-
-    setTimeout(function(){
-      self.instance.blackhole.destroy();
-    },1000);
-
-
-    timeout = setInterval(function(){
-      self.moveLeft();
-    }, 1000);    
   },
   moveLeft: function(){
-    if(this.instance.x < this.game.world.bounds.x + 150){
-      clearInterval(timeout);
-      timeout = setInterval(function(){
-        self.moveRight();
-      }, 1000);
-    }else{
-      this.instance.body.velocity.x = -150;
-      this.instance.animations.play('left'); 
-    } 
+    this.instance.body.velocity.x = -150;
+    this.instance.animations.play('left');
   },
   moveRight: function(){
-    if(this.instance.x > this.game.world.width - 150){
-      clearInterval(timeout);
-      timeout = setInterval(function(){
-        self.moveLeft();
-      }, 1000);
-    }else{
-      this.instance.body.velocity.x = 150;
-      this.instance.animations.play('right');
-    } 
+    this.instance.body.velocity.x = 150;
+    this.instance.animations.play('right'); 
   },
   stop: function(){
     this.instance.animations.stop();
     this.instance.frame = 1;
+  },
+  next: function(){
+    self.moveLeft();
+  },
+  update: function(){
+    if(self.instance.x < 50){
+      self.next = self.moveRight;
+      self.moveRight();
+    }else{
+      if(self.instance.x > self.game.world.width - 150){
+        self.moveLeft();
+        self.next = self.moveLeft;
+      }else{
+        console.log(self.next);
+        self.next();
+      }
+    }
+    nextMovement = self.game.time.now + movementDelay; 
   }
 }

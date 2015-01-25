@@ -21,7 +21,6 @@ Dogvasion.Game.prototype = {
   },
   create: function(){
     var background = this.game.add.tileSprite(0, 0, 800, 600, "background");
-    
 
     //set up sounds
     this.levelMusic.play("", 0, 1, true, true);
@@ -64,9 +63,12 @@ Dogvasion.Game.prototype = {
       this.player.stop();
     }
 
-    if (this.game.input.activePointer.isDown)
-    {
+    if (this.game.input.activePointer.isDown){
       this.player.shoot();
+    }
+
+    if (this.minion.instance.alive){
+      this.minion.update();
     }
     
     if (wKey.isDown && this.player.instance.body.touching.down){
