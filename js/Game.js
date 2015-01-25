@@ -7,6 +7,7 @@ Dogvasion.Game = function() {
 Dogvasion.Game.prototype = {
   preload: function(){
     this.game.load.image("background", "assets/images/city_bg.png");
+    this.game.levelMusic.play("", 0, 1, true, true);
   },
   create: function(){
     var background = this.game.add.tileSprite(0, 0, 800, 600, "background");
@@ -14,6 +15,7 @@ Dogvasion.Game.prototype = {
     //set up sounds
     this.whineSound = this.game.add.audio("whine");
     this.deathSound = this.game.add.audio("death");
+    this.levelMusic = this.game.add.audio("level1");
 
     //set up physical elements
     this.platforms = this.game.add.group();
@@ -71,7 +73,7 @@ function minionCollisionHandler(player, minion){
 function minionShotHandler(bullet, minion){
   // if(minion.hits >= 2){
     
-    this.whineSound.play();
+    this.whineSound.play("",0.5,1,false,true);
     bullet.kill();
     minion.kill();
     this.minion = new Dogvasion.Minion(); 
