@@ -7,7 +7,7 @@ Dogvasion.Game = function() {
 Dogvasion.Game.prototype = {
   preload: function(){
     this.game.load.image("background", "assets/images/city_bg.png");
-    this.dpainSound = this.game.add.audio("dpain1")
+    this.dpainSound = this.game.add.audio("dpain1");
     this.whineSound = this.game.add.audio("whine");
     this.deathSound = this.game.add.audio("death");
     this.levelMusic = this.game.add.audio("level1");

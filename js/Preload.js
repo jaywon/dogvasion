@@ -24,7 +24,7 @@ Dogvasion.Preload.prototype = {
     this.load.spritesheet('kittens', 'assets/images/sprites/samcat.png', 50, 50, 9);
     this.load.spritesheet('enemies', 'assets/images/sprites/maxdog.png', 120, 60, 16);
     this.load.spritesheet('pistol', 'assets/images/sprites/guns.png', 40, 40, 2);
-    this.load.audio('bark', 'assets/sfx/dogs/bark.mp3');
+    // this.load.audio('bark', 'assets/sfx/dogs/bark.mp3');
     this.load.audio('growl', 'assets/sfx/dogs/growl.mp3');
     this.load.audio('dpain1', 'assets/sfx/dogs/pain1.mp3');
     // this.load.audio('dpain2', 'assets/sfx/dogs/pain2.mp3');
@@ -45,7 +45,7 @@ Dogvasion.Preload.prototype = {
     // this.load.audio('pain3', 'assets/sfx/sam/pain3.mp3');
     // this.load.audio('pain4', 'assets/sfx/sam/pain4.mp3');
     // this.load.audio('pain5', 'assets/sfx/sam/pain5.mp3');
-    this.load.audio('intro', 'assets/music/intro-mainmenu.mp3');
+    // this.load.audio('intro', 'assets/music/intro-mainmenu.mp3');
     this.load.audio('level1', 'assets/music/level1.mp3');
  
   },

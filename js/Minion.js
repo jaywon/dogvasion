@@ -17,10 +17,14 @@ Dogvasion.Minion = function() {
 var timeout;
 
 Dogvasion.Minion.prototype = {
+  preload: function(){
+    this.growlSound = this.game.add.audio("growl");
+  }
   init: function(){
     var randomX = this.game.world.randomX;
     var randomY = this.game.world.randomY;
     this.instance = this.game.add.sprite(randomX, randomY, 'enemies');
+    this.growlSound.play();
     this.game.physics.arcade.enable(this.instance);
     this.instance.body.bounce.y = 0.2;
     this.instance.body.gravity.y = 300;
@@ -30,7 +34,6 @@ Dogvasion.Minion.prototype = {
     this.instance.animations.add('right', [0,1,2,3], 12, true, true); 
 
     this.instance.blackhole = this.game.add.sprite(randomX - 150, randomY - 150, 'blackhole');
-
     this.instance.bringToTop();
 
     setTimeout(function(){
