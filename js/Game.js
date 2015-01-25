@@ -32,10 +32,8 @@ Dogvasion.Game.prototype = {
     this.player = new Dogvasion.Samcat();    
     this.minion = new Dogvasion.Minion();
 
-    //setup game over text
-    // this.introText = this.game.add.text(this.game.world.centerX, 400, '- click to start -', { font: "40px Arial", fill: "#ffffff", align: "center" });
-    // this.introText.anchor.setTo(0.5, 0.5);
-    // this.introText.visible = false;
+    this.scoreText = this.game.add.text(this.game.world.x, this.game.world.y, '# Lives: ' + this.player.instance.health, {font: "40px Arial", fill: "#ffffff", align: "center"});
+
   },
 
   update: function(){
@@ -71,7 +69,7 @@ Dogvasion.Game.prototype = {
   },
 
   gameOver: function(){
-    this.gameOverText = this.game.add.text(this.game.world.centerX, 400, 'Game Over!', { font: "40px Arial", fill: "#ffffff", align: "center" });
+    this.gameOverText = this.game.add.text(this.game.world.centerX, this.game.world.centerY, 'Game Over!', { font: "40px Arial", fill: "#ffffff", align: "center" });
     this.gameOverText.anchor.setTo(0.5, 0.5);
     this.gameOverText.visible = true;
   }
@@ -83,12 +81,15 @@ function minionCollisionHandler(player, minion){
   if(this.game.time.now > nextHit){
     nextHit = this.game.time.now + hitRate;
     player.damage(1);
+    this.scoreText.text = "# of Lives: " + this.player.instance.health;
+    
     if(!player.alive){
       this.deathSound.play();
       this.gameOver();
     }else{
       this.painSound.play();
-    } 
+    }
+
   }
 }
 
