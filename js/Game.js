@@ -94,7 +94,7 @@ function minionCollisionHandler(player, minion){
 }
 
 function minionShotHandler(bullet, minion){
-    this.whineSound.play("",0.5,1,false,true);
+    this.whineSound.play();
     bullet.kill();
     minion.kill();
     this.minion = new Dogvasion.Minion(); 
