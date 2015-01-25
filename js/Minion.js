@@ -3,6 +3,7 @@ var MAX_HEALTH = 2;
 var DEATH_HITS = 2;
 
 Dogvasion.Minion = function() {
+  self = this;
   this.game = Dogvasion.game;
   this.health = MAX_HEALTH;
   this.hits = 0;
@@ -11,7 +12,7 @@ Dogvasion.Minion = function() {
 
 Dogvasion.Minion.prototype = {
   init: function(){
-    this.instance = this.game.add.sprite(10, this.game.world.height - 50, 'enemies');
+    this.instance = this.game.add.sprite(this.game.world.width - 50, this.game.world.height / 2, 'enemies');
     this.game.physics.arcade.enable(this.instance);
     this.instance.body.bounce.y = 0.2;
     this.instance.body.gravity.y = 300;
@@ -19,6 +20,10 @@ Dogvasion.Minion.prototype = {
 
     this.instance.animations.add('left', [21,22,23], 12, true, true);
     this.instance.animations.add('right', [33,34,35], 12, true, true); 
+
+    var timeout = setInterval(function(){
+      self.instance.body.velocity.x = - 150;
+    }, 1000);    
   },
   moveLeft: function(){
     this.instance.body.velocity.x = -150;
