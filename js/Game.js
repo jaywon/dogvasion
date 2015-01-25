@@ -30,6 +30,11 @@ Dogvasion.Game.prototype = {
     //initialize player and set physics properties
     this.player = new Dogvasion.Samcat();    
     this.minion = new Dogvasion.Minion();
+
+    //setup game over text
+    // this.introText = this.game.add.text(this.game.world.centerX, 400, '- click to start -', { font: "40px Arial", fill: "#ffffff", align: "center" });
+    // this.introText.anchor.setTo(0.5, 0.5);
+    // this.introText.visible = false;
   },
 
   update: function(){
@@ -62,24 +67,23 @@ Dogvasion.Game.prototype = {
     if (wKey.isDown && this.player.instance.body.touching.down){
       this.player.jump();
     }
+  },
+
+  gameOver: function(){
+    this.introText.text = 'Game Over!';
+    this.introText.visible = true;
   }
 };
 
 function minionCollisionHandler(player, minion){
   this.deathSound.play();
   player.kill();
+  this.gameOver();
 }
 
 function minionShotHandler(bullet, minion){
-  // if(minion.hits >= 2){
-    
     this.whineSound.play("",0.5,1,false,true);
     bullet.kill();
     minion.kill();
     this.minion = new Dogvasion.Minion(); 
-  // }else{
-  //   this.dpainSound.play();
-  //   bullet.kill();
-  //   minion.hits += 1;
-  // }
 }
