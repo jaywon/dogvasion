@@ -1,23 +1,20 @@
 var Dogvasion = Dogvasion || {};
- 
 //loading the game assets
- 
-Dogvasion.Preload = function(){};
+var minLoadTime; 
+
+Dogvasion.Preload = function(){
+    self = this;
+};
  
 Dogvasion.Preload.prototype = {
  
   preload: function() {
+    minLoadTime = this.game.time.now + 5000;
+
     //show loading screen
- 
-    // this.preloadBar = this.add.sprite(this.game.world.centerX, this.game.world.centerY, 'preloadbar');
- 
-    // this.preloadBar.anchor.setTo(0.5);
- 
-    // this.preloadBar.scale.setTo(3);
- 
-    // this.load.setPreloadSprite(this.preloadBar);
-    this.game.load.image('logo', 'assets/images/sprites/dogvasion.png');
- 
+    this.game.stage.backgroundColor = '#990000';
+    this.add.sprite(this.game.world.centerX - 100, this.game.world.centerY - 100, 'logo');
+
     //load game assets
     this.load.image('ground', 'assets/images/sprites/ground.jpg', 400, 200);
     this.load.image('blackhole', 'assets/images/sprites/blackhole.png');
@@ -46,13 +43,21 @@ Dogvasion.Preload.prototype = {
     this.load.audio('pain3', 'assets/sfx/sam/pain3.mp3');
     this.load.audio('pain4', 'assets/sfx/sam/pain4.mp3');
     this.load.audio('pain5', 'assets/sfx/sam/pain5.mp3');
-    // this.load.audio('intro', 'assets/music/intro-mainmenu.mp3');
+    this.load.audio('intro', 'assets/music/intro-mainmenu.mp3');
     this.load.audio('level1', 'assets/music/level1.mp3');
+
+    this.introSound = this.add.audio('intro');
+    this.introSound.play();
  
   },
  
   create: function() {
-    this.state.start('Game');
+    if(self.game.time.now > minLoadTime){
+      self.introSound.stop();
+      self.state.start('Game');
+    }else{
+      setTimeout(self.create, 1000);
+    }
   }
  
 };

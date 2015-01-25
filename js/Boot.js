@@ -4,6 +4,7 @@ Dogvasion.Boot = function(){};
 Dogvasion.Boot.prototype = {
   preload: function () {
     // this.load.image('preloadbar', 'assets/images/preloader-bar.png');
+    this.load.image('logo', 'assets/images/sprites/dogvasion-logo.png');
   },
   create: function() {
     //loading screen will have a white background 
