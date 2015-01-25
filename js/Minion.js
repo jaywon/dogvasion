@@ -1,6 +1,9 @@
 var Dogvasion = Dogvasion || {};
-var MAX_HEALTH = 2;
-var MAX_HITS= 2;
+var nextMovement = 0;
+var movementDelay = 100; 
+var timeout;
+var blackholeGenTime;
+var blackholeTimeout = 2000;
 
 function random(){
   return Math.floor(Math.random() * 50) + 1;
@@ -9,23 +12,24 @@ function random(){
 Dogvasion.Minion = function() {
   self = this;
   this.game = Dogvasion.game;
-  this.health = MAX_HEALTH;
-  this.hits = 0;
   this.init();
 };
 
-var timeout;
 
 Dogvasion.Minion.prototype = {
   init: function(){
     var randomX = this.game.world.randomX;
     var randomY = this.game.world.randomY;
     this.instance = this.game.add.sprite(randomX, randomY, 'enemies');
+
+    this.instance.alpha = 0;
+    this.game.add.tween(this.instance).to({ alpha: 1 }, 1000, Phaser.Easing.Linear.None, true);
     this.growlSound1 = this.game.add.audio("growl");
     this.growlSound2 = this.game.add.audio("bark");
     this.growlSounds = [this.growlSound1,this.growlSound2];
     var rando2 = Math.floor(Math.random()*2);
     this.growlSounds[rando2].play();
+
     this.game.physics.arcade.enable(this.instance);
     this.instance.body.bounce.y = 0.2;
     this.instance.body.gravity.y = 300;
@@ -35,41 +39,44 @@ Dogvasion.Minion.prototype = {
     this.instance.animations.add('right', [0,1,2,3], 12, true, true); 
 
     this.instance.blackhole = this.game.add.sprite(randomX - 150, randomY - 150, 'blackhole');
-    this.instance.bringToTop();
-
-    setTimeout(function(){
-      self.instance.blackhole.destroy();
-    },1000);
-
-
-    timeout = setInterval(function(){
-      self.moveLeft();
-    }, 1000);    
+    blackholeGenTime = this.game.time.now + blackholeTimeout;
+    this.game.add.tween(this.instance.blackhole).to({ alpha: 0 }, 2000, Phaser.Easing.Linear.None, true);
   },
   moveLeft: function(){
-    if(this.instance.x < this.game.world.bounds.x + 150){
-      clearInterval(timeout);
-      timeout = setInterval(function(){
-        self.moveRight();
-      }, 1000);
-    }else{
-      this.instance.body.velocity.x = -150;
-      this.instance.animations.play('left'); 
-    } 
+    this.instance.body.velocity.x = -150;
+    this.instance.animations.play('left');
   },
   moveRight: function(){
-    if(this.instance.x > this.game.world.width - 150){
-      clearInterval(timeout);
-      timeout = setInterval(function(){
-        self.moveLeft();
-      }, 1000);
-    }else{
-      this.instance.body.velocity.x = 150;
-      this.instance.animations.play('right');
-    } 
+    this.instance.body.velocity.x = 150;
+    this.instance.animations.play('right'); 
   },
   stop: function(){
     this.instance.animations.stop();
     this.instance.frame = 1;
+  },
+  next: function(){
+    //move left is set only first time, 
+    //this function is replaced each time direction is adjusted
+    self.moveLeft();
+  },
+  update: function(){
+    if(blackholeGenTime < self.game.time.now){
+      self.instance.blackhole.kill();
+    }else{
+      self.instance.blackhole.alpha -= .001;  
+    }
+
+    if(self.instance.x < 50){
+      self.next = self.moveRight;
+      self.next();
+    }else{
+      if(self.instance.x > self.game.world.width - 150){
+        self.next = self.moveLeft;
+        self.next();
+      }else{
+        self.next();
+      }
+    }
+    nextMovement = self.game.time.now + movementDelay; 
   }
 }
