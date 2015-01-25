@@ -7,11 +7,17 @@ Dogvasion.Game = function() {
 Dogvasion.Game.prototype = {
   preload: function(){
     this.game.load.image("background", "assets/images/city_bg.png");
-    this.dpainSound = this.game.add.audio("dpain1")
+    this.dpainSound = this.game.add.audio("dpain1");
     this.whineSound = this.game.add.audio("whine");
     this.deathSound = this.game.add.audio("death");
     this.levelMusic = this.game.add.audio("level1");
-    this.painSound = this.game.add.audio("pain1");
+
+    this.painSound1 = this.game.add.audio("pain1");
+    this.painSound2 = this.game.add.audio("pain2");
+    this.painSound3 = this.game.add.audio("pain3");
+    this.painSound4 = this.game.add.audio("pain4");
+    this.painSound5 = this.game.add.audio("pain5");
+    var painSounds = [this.painSound1,this.painSound2,this.painSound3,this.painSound4,this.painSound5];
   },
   create: function(){
     var background = this.game.add.tileSprite(0, 0, 800, 600, "background");
@@ -87,14 +93,15 @@ function minionCollisionHandler(player, minion){
       this.deathSound.play();
       this.gameOver();
     }else{
-      this.painSound.play();
+      var rando = Math.floor(Math.random()*5);
+      painSounds[rando].play();
     }
 
   }
 }
 
 function minionShotHandler(bullet, minion){
-    this.whineSound.play("",0.5,1,false,true);
+    this.whineSound.play();
     bullet.kill();
     minion.kill();
     this.minion = new Dogvasion.Minion(); 
