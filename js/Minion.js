@@ -14,6 +14,8 @@ Dogvasion.Minion = function() {
   this.init();
 };
 
+var timeout;
+
 Dogvasion.Minion.prototype = {
   init: function(){
     this.instance = this.game.add.sprite(this.game.world.randomX,this.game.world.randomY, 'enemies');
@@ -22,20 +24,34 @@ Dogvasion.Minion.prototype = {
     this.instance.body.gravity.y = 300;
     this.instance.body.collideWorldBounds = true;
 
-    this.instance.animations.add('left', [21,22,23], 12, true, true);
-    this.instance.animations.add('right', [33,34,35], 12, true, true); 
+    this.instance.animations.add('left', [4,5,6,7], 12, true, true);
+    this.instance.animations.add('right', [0,1,2,3], 12, true, true); 
 
-    var timeout = setInterval(function(){
-      self.instance.body.velocity.x = - 150;
+    timeout = setInterval(function(){
+      self.moveLeft();
     }, 1000);    
   },
   moveLeft: function(){
-    this.instance.body.velocity.x = -150;
-    this.instance.animations.play('left');    
+    if(this.instance.x < this.game.world.bounds.x + 150){
+      clearInterval(timeout);
+      timeout = setInterval(function(){
+        self.moveRight();
+      }, 1000);
+    }else{
+      this.instance.body.velocity.x = -150;
+      this.instance.animations.play('left'); 
+    } 
   },
   moveRight: function(){
-    this.instance.body.velocity.x = 150;
-    this.instance.animations.play('right');
+    if(this.instance.x > this.game.world.width - 150){
+      clearInterval(timeout);
+      timeout = setInterval(function(){
+        self.moveLeft();
+      }, 1000);
+    }else{
+      this.instance.body.velocity.x = 150;
+      this.instance.animations.play('right');
+    } 
   },
   stop: function(){
     this.instance.animations.stop();
