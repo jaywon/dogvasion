@@ -39,7 +39,7 @@ Dogvasion.Preload.prototype = {
     // this.load.audio('happy', 'assets/sfx/sam/exclamation1.wav');
     // this.load.audio('hiss', 'assets/sfx/sam/hiss.wav');
     this.load.audio('meow', 'assets/sfx/sam/meow1.wav');
-    // this.load.audio('pain1', 'assets/sfx/sam/pain1.wav');
+    this.load.audio('pain1', 'assets/sfx/sam/pain1.wav');
     // this.load.audio('pain2', 'assets/sfx/sam/pain2.wav');
     // this.load.audio('pain3', 'assets/sfx/sam/pain3.wav');
     // this.load.audio('pain4', 'assets/sfx/sam/pain4.wav');

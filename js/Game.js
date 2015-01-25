@@ -11,6 +11,7 @@ Dogvasion.Game.prototype = {
     this.whineSound = this.game.add.audio("whine");
     this.deathSound = this.game.add.audio("death");
     this.levelMusic = this.game.add.audio("level1");
+    this.painSound = this.game.add.audio("pain1");
   },
   create: function(){
     var background = this.game.add.tileSprite(0, 0, 800, 600, "background");
@@ -76,10 +77,21 @@ Dogvasion.Game.prototype = {
   }
 };
 
+var nextHit = 0;
+var hitRate = 1000;
 function minionCollisionHandler(player, minion){
-  this.deathSound.play();
-  player.kill();
-  this.gameOver();
+  if(this.game.time.now > nextHit){
+    nextHit = this.game.time.now + hitRate;
+    player.damage(1);
+    if(!player.alive){
+      this.deathSound.play();
+      this.gameOver();
+    }else{
+      this.painSound.play();
+    } 
+  }
+
+
 }
 
 function minionShotHandler(bullet, minion){

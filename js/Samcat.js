@@ -29,6 +29,9 @@ Dogvasion.Samcat.prototype = {
     this.instance.pistol.animations.add('right',[1], 12, true, true);
     this.instance.addChild(this.instance.pistol);
 
+    //set initial health value
+    this.instance.health = MAX_LIVES;
+
     //bind events
     // this.instance.events.onKilled.add(function(){
     //   console.log(self.instance);
@@ -36,9 +39,8 @@ Dogvasion.Samcat.prototype = {
 
     //set up bullets
     this.bullets = this.game.add.group();
-    this.bullets.enableBody = true;
+    this.bullets.enableBody = true  ;
     this.bullets.physicsBodyType = Phaser.Physics.ARCADE;
-
     this.bullets.createMultiple(50, 'bullet');
     this.bullets.setAll('anchor.x', 0.3);
     this.bullets.setAll('anchor.y', 0.2);
@@ -82,6 +84,9 @@ Dogvasion.Samcat.prototype = {
           this.game.physics.arcade.moveToPointer(bullet, 300);
       }
     }
+  },
+  bump: function(){
+    this.instance.body.velocity.x = -150;
   },
   update: function(){
     console.log('cat update');
