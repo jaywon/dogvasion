@@ -28,17 +28,28 @@ Dogvasion.Game.prototype = {
     this.game.physics.arcade.collide(this.player.instance, this.platforms);
 
     var cursors = this.game.input.keyboard.createCursorKeys();
+    var wKey = this.game.input.keyboard.addKey(Phaser.Keyboard.W);
+    var aKey = this.game.input.keyboard.addKey(Phaser.Keyboard.A);
+    var sKey = this.game.input.keyboard.addKey(Phaser.Keyboard.S);
+    var dKey = this.game.input.keyboard.addKey(Phaser.Keyboard.D);
     this.player.instance.body.velocity.x = 0;
 
-    if(cursors.left.isDown){
+    if(aKey.isDown){
       this.player.moveLeft();
-    }else if(cursors.right.isDown){
+    }else if(dKey.isDown){
       this.player.moveRight();
     }else{
       this.player.stop();
     }
+
+    // sprite.rotation = game.physics.arcade.angleToPointer(sprite);
+
+    if (this.game.input.activePointer.isDown)
+    {
+      this.player.shoot();
+    }
     
-    if (cursors.up.isDown && this.player.instance.body.touching.down){
+    if (wKey.isDown && this.player.instance.body.touching.down){
       this.player.jump();
     }
   }
