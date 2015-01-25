@@ -21,11 +21,15 @@ Dogvasion.Game.prototype = {
 
     //initialize player and set physics properties
     this.player = new Dogvasion.Samcat();  
-    this.enemy = new Dogvasion.Minion();
+    this.minion = new Dogvasion.Minion(); 
+    // this.minions = this.game.add.group();
+    // this.minions.enableBody = true;
+    // this.minions.physicalBodyType = Phaser.Physics.ARCADE;
   },
 
   update: function(){
     this.game.physics.arcade.collide(this.player.instance, this.platforms);
+    this.game.physics.arcade.overlap(this.player.bullets, this.minion.instance, minionShotHandler, null, this);
 
     var cursors = this.game.input.keyboard.createCursorKeys();
     var wKey = this.game.input.keyboard.addKey(Phaser.Keyboard.W);
@@ -54,3 +58,14 @@ Dogvasion.Game.prototype = {
     }
   }
 };
+
+function minionShotHandler(bullet, minion){
+  if(minion.hits >= 2){
+    bullet.kill();
+    minion.kill();
+    this.minion = new Dogvasion.Minion(); 
+  }else{
+    bullet.kill();
+    minion.hits += 1;
+  }
+}
