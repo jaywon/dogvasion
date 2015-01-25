@@ -21,6 +21,7 @@ Dogvasion.Game.prototype = {
 
     //initialize player and set physics properties
     this.player = new Dogvasion.Samcat();  
+    this.enemy = new Dogvasion.Minion();
   },
 
   update: function(){

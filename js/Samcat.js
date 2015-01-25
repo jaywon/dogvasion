@@ -10,7 +10,7 @@ Dogvasion.Samcat = function() {
 
 Dogvasion.Samcat.prototype = {
   init: function(){
-    this.instance = this.game.add.sprite(10, this.game.world.height / 2, 'kittens');
+    this.instance = this.game.add.sprite(this.game.world.width / 2, this.game.world.height / 2, 'kittens');
     this.game.physics.arcade.enable(this.instance);
     this.instance.body.bounce.y = 0.2;
     this.instance.body.gravity.y = 300;
@@ -33,5 +33,8 @@ Dogvasion.Samcat.prototype = {
   },
   jump: function(){
     this.instance.body.velocity.y = -350;
+  },
+  shoot: function(){
+
   }
 }
