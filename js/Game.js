@@ -11,6 +11,9 @@ Dogvasion.Game.prototype = {
   create: function(){
     var background = this.game.add.tileSprite(0, 0, 800, 600, "background");
     
+    //set up sounds
+    this.whineSound = this.game.add.audio("whine");
+
     //set up physical elements
     this.platforms = this.game.add.group();
     this.platforms.enableBody = true;
@@ -60,16 +63,16 @@ Dogvasion.Game.prototype = {
 };
 
 function minionShotHandler(bullet, minion){
-  if(minion.hits >= 2){
-    new Sound(Dogvasion, 'whine')
-    whine.play();
+  // if(minion.hits >= 2){
+    
+    this.whineSound.play();
     bullet.kill();
     minion.kill();
     this.minion = new Dogvasion.Minion(); 
-  }else{
-    new Sound(Dogvasion, 'dpain1')
-    dpain1.play();
-    bullet.kill();
-    minion.hits += 1;
-  }
+  // }else{
+  //   new Sound(Dogvasion, 'dpain1')
+  //   dpain1.play();
+  //   bullet.kill();
+  //   minion.hits += 1;
+  // }
 }
