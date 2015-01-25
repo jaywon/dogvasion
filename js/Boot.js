@@ -3,7 +3,7 @@ Dogvasion.Boot = function(){};
 
 Dogvasion.Boot.prototype = {
   preload: function () {
-    // this.load.image('preloadbar', 'assets/images/preloader-bar.png');
+    // this.load.image('preloadbar', 'asksets/images/preloader-bar.png');
   },
   create: function() {
     //loading screen will have a white background 

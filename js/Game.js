@@ -15,7 +15,7 @@ Dogvasion.Game.prototype = {
   create: function(){
     var background = this.game.add.tileSprite(0, 0, 800, 600, "background");
     
-
+    
     //set up sounds
     this.levelMusic.play("", 0, 1, true, true);
 
@@ -29,7 +29,22 @@ Dogvasion.Game.prototype = {
 
     //initialize player and set physics properties
     this.player = new Dogvasion.Samcat();    
-    this.minion = new Dogvasion.Minion();
+    // this.minion = new Dogvasion.Minion();
+    
+    this.minions = this.game.add.group();
+    for(var i = 0; i < 10; i++){
+      // var minion = createMinion(this.game);
+      var minion = this.game.add.sprite(this.game.world.randomX, this.game.world.randomY, 'enemies');
+
+      this.game.physics.arcade.enable(minion);
+      minion.body.bounce.y = 0.2;
+      minion.body.gravity.y = 300;
+      minion.body.collideWorldBounds = true;
+
+      minion.animations.add('left', [21,22,23], 12, true, true);
+      minion.animations.add('right', [33,34,35], 12, true, true); 
+      this.minions.add(minion);
+    }
   },
 
   update: function(){
@@ -42,9 +57,9 @@ Dogvasion.Game.prototype = {
     this.player.instance.body.velocity.x = 0;
     this.game.physics.arcade.collide(this.player.instance, this.platforms);
     
-    this.game.physics.arcade.collide(this.minion.instance, this.platforms);
-    this.game.physics.arcade.overlap(this.player.bullets, this.minion.instance, minionShotHandler, null, this);
-    this.game.physics.arcade.overlap(this.player.instance, this.minion.instance, minionCollisionHandler, null, this);
+    this.game.physics.arcade.collide(this.minions, this.platforms);
+    this.game.physics.arcade.overlap(this.player.bullets, this.minions, minionShotHandler, null, this);
+    this.game.physics.arcade.overlap(this.player.instance, this.minions, minionCollisionHandler, null, this);
 
     if(aKey.isDown){
       this.player.moveLeft();
@@ -65,21 +80,22 @@ Dogvasion.Game.prototype = {
   }
 };
 
+function createMinion(game){
+  console.log(game);
+  
+}
+
 function minionCollisionHandler(player, minion){
   this.deathSound.play();
   player.kill();
 }
 
 function minionShotHandler(bullet, minion){
-  // if(minion.hits >= 2){
-    
-    this.whineSound.play("",0.5,1,false,true);
-    bullet.kill();
-    minion.kill();
-    this.minion = new Dogvasion.Minion(); 
-  // }else{
-  //   this.dpainSound.play();
-  //   bullet.kill();
-  //   minion.hits += 1;
-  // }
+  console.log(minion);
+  this.whineSound.play("",0.5,1,false,true);
+  bullet.kill();
+  minion.kill();
+  // var minion = createMinion();
+  // this.minions.add(minion);
+  // this.minion = new Dogvasion.Minion(); 
 }
