@@ -90,8 +90,6 @@ function minionCollisionHandler(player, minion){
       this.painSound.play();
     } 
   }
-
-
 }
 
 function minionShotHandler(bullet, minion){

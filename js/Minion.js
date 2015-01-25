@@ -18,7 +18,9 @@ var timeout;
 
 Dogvasion.Minion.prototype = {
   init: function(){
-    this.instance = this.game.add.sprite(this.game.world.randomX,this.game.world.randomY, 'enemies');
+    var randomX = this.game.world.randomX;
+    var randomY = this.game.world.randomY;
+    this.instance = this.game.add.sprite(randomX, randomY, 'enemies');
     this.game.physics.arcade.enable(this.instance);
     this.instance.body.bounce.y = 0.2;
     this.instance.body.gravity.y = 300;
@@ -26,6 +28,15 @@ Dogvasion.Minion.prototype = {
 
     this.instance.animations.add('left', [4,5,6,7], 12, true, true);
     this.instance.animations.add('right', [0,1,2,3], 12, true, true); 
+
+    this.instance.blackhole = this.game.add.sprite(randomX - 150, randomY - 150, 'blackhole');
+
+    this.instance.bringToTop();
+
+    setTimeout(function(){
+      self.instance.blackhole.destroy();
+    },1000);
+
 
     timeout = setInterval(function(){
       self.moveLeft();
