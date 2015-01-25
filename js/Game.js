@@ -17,7 +17,7 @@ Dogvasion.Game.prototype = {
     this.painSound3 = this.game.add.audio("pain3");
     this.painSound4 = this.game.add.audio("pain4");
     this.painSound5 = this.game.add.audio("pain5");
-    var painSounds = [this.painSound1,this.painSound2,this.painSound3,this.painSound4,this.painSound5];
+    this.painSounds = [this.painSound1,this.painSound2,this.painSound3,this.painSound4,this.painSound5];
   },
   create: function(){
     var background = this.game.add.tileSprite(0, 0, 800, 600, "background");
@@ -94,7 +94,7 @@ function minionCollisionHandler(player, minion){
       this.gameOver();
     }else{
       var rando = Math.floor(Math.random()*5);
-      painSounds[rando].play();
+      this.painSounds[rando].play();
     }
 
   }
