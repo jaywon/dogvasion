@@ -13,12 +13,13 @@ Dogvasion.Preload.prototype = {
 
     //show loading screen
     this.game.stage.backgroundColor = '#990000';
-    this.add.sprite(this.game.world.centerX - 100, this.game.world.centerY - 100, 'logo');
+    this.add.sprite(this.game.world.centerX - 100 - 50, this.game.world.centerY - 100, 'logo');
 
     //load game assets
     this.load.image('ground', 'assets/images/sprites/ground.jpg', 400, 200);
     this.load.image('blackhole', 'assets/images/sprites/blackhole.png');
     this.load.image('bullet', 'assets/images/sprites/purpleball.png');
+    this.load.image('paw', 'assets/images/sprites/paw.png');
     this.load.spritesheet('kittens', 'assets/images/sprites/samcat.png', 50, 50, 9);
     this.load.spritesheet('enemies', 'assets/images/sprites/maxdog.png', 120, 60, 16);
     this.load.spritesheet('pistol', 'assets/images/sprites/guns.png', 40, 40, 2);

@@ -40,8 +40,13 @@ Dogvasion.Game.prototype = {
     this.player = new Dogvasion.Samcat();    
     this.minion = new Dogvasion.Minion();
 
-    this.scoreText = this.game.add.text(this.game.world.x, this.game.world.y, '# Lives: ' + this.player.instance.health, {font: "40px Arial", fill: "#ffffff", align: "center"});
+    // this.scoreText = this.game.add.text(this.game.world.x, this.game.world.y, 'Lives: ' + this.player.instance.health, {font: "16px Arial", fill: "#ffffff", align: "left"});
+    this.scoreText = this.game.add.text(this.game.world.x + 10, this.game.world.y, 'Lives: ', {font: "16px Arial", fill: "#ffffff", align: "left"});
 
+    this.pawGroup = this.game.add.group();
+    for(var i = 0; i < 9; i++){
+      this.pawGroup.create(this.game.world.x + 60 + (i * 30), -5, 'paw');
+    }
   },
 
   update: function(){
@@ -92,7 +97,8 @@ function minionCollisionHandler(player, minion){
   if(this.game.time.now > nextHit){
     nextHit = this.game.time.now + hitRate;
     player.damage(1);
-    this.scoreText.text = "# of Lives: " + this.player.instance.health;
+    this.pawGroup.removeBetween(this.pawGroup.children.length - 1, this.pawGroup.children.length - 1);
+    // this.scoreText.text = "# of Lives: " + this.player.instance.health;
     
     if(!player.alive){
       this.deathSound.play();
